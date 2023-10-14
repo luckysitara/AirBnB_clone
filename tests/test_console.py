@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """Test for the console"""
 
-import unittest
 import console
+import unittest
 from console import HBNBCommand
 
 
@@ -24,3 +24,4 @@ class test_console(unittest.TestCase):
         """
         con = self.create()
         self.assertTrue(con.onecmd("EOF"))
+
