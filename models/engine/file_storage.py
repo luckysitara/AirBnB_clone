@@ -40,18 +40,18 @@ class FileStorage:
             json.dump(dict_serl, file)
 
     def get_classes(self, str_id):
-        """ Returns class models 
+        """ Returns class model
         Args:
             str_id (str): instance id to get model
         Returns:
             Object model
         """
+
         from models.base_model import BaseModel
-        FileStorage.__classes = {"BaseModel" : BaseModel}
+        FileStorage.__classes = {"BaseModel": BaseModel}
         for key, value in FileStorage.__classes.items():
             if key in str_id:
                 return FileStorage.__classes[key]
-        
 
     def reload(self):
         """ deserializes the JSON file to __objects (only if the JSON file
