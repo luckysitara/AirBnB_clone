@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """
-    BaseModel calss module for AirBnB_clone
+    BaseModel class module for AirBnB_clone
 """
 
 import uuid
 from datetime import datetime
-from . import storage
+from models import storage
 
 
 class BaseModel:
@@ -28,7 +28,7 @@ class BaseModel:
                 elif key == "updated_at":
                     self.updated_at = datetime.fromisoformat(value)
                 elif key == "__class__":
-                    self.__class__ = type(self)
+                    continue
                 else:
                     setattr(self, key, value)
 
@@ -51,7 +51,7 @@ class BaseModel:
     def to_dict(self):
         """ Returns a dictionary containing all keys/values of __dict__
         of the instance """
-        inst_dict = self.__dict__
+        inst_dict = self.__dict__.copy()
         inst_dict["__class__"] = self.__class__.__name__
         if type(inst_dict["created_at"]) is datetime:
             inst_dict["created_at"] = inst_dict["created_at"].isoformat()

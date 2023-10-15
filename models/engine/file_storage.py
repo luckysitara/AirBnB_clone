@@ -16,6 +16,7 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
+    __classes = {}
 
     def all(self):
         """ Returns dictionary containing all object instances id """
@@ -32,14 +33,30 @@ class FileStorage:
     def save(self):
         """ serializes __objects to the JSON file (path: __file_path) """
         with open(FileStorage.__file_path, 'w', encoding="utf-8") as file:
-            n_dict = dict(FileStorage.__objects)
+            n_dict = self.all()
+            dict_serl = {}
             for key, value in n_dict.items():
-                n_dict[key] = value.to_dict()
-            json.dump(n_dict, file)
+                dict_serl[key] = value.to_dict()
+            json.dump(dict_serl, file)
+
+    def get_classes(self, str_id):
+        """ Returns class models 
+        Args:
+            str_id (str): instance id to get model
+        """
+        from models.base_model import BaseModel
+        FileStorage.__classes = {"BaseModel" : BaseModel}
+        for key, value in FileStorage.__classes.items():
+            if key in str_id:
+                return FileStorage.__classes[key]
+        
 
     def reload(self):
         """ deserializes the JSON file to __objects (only if the JSON file
         (__file_path) exists """
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r', encoding="utf-8") as fi:
-                FileStorage.__objects = json.loads(fi.read())
+                objects = json.loads(fi.read())
+                active_class = self.all()
+                for key, value in objects.items():
+                    active_class[key] = self.get_classes(key)(**value)
