@@ -43,6 +43,8 @@ class FileStorage:
         """ Returns class models 
         Args:
             str_id (str): instance id to get model
+        Returns:
+            Object model
         """
         from models.base_model import BaseModel
         FileStorage.__classes = {"BaseModel" : BaseModel}
