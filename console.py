@@ -3,6 +3,7 @@
 import all modules needed
 '''
 import cmd
+import readline
 
 '''
 create a class called the HBNBCommand
@@ -22,12 +23,13 @@ HBNB Console for the win
         quit to end the programe
         '''
         pass
+        return True
 
     def do_EOF(self):
         '''
         handle end of file and quit like a pro
         '''
-        pass
+        return True
 
 
 if __name__ == '__main__':
