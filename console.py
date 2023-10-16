@@ -19,15 +19,23 @@ HBNB Console for the win
 
     def do_quit(self, arg):
         '''
-        quit to end the programe
+quit to end the programe
         '''
         return True
 
     def do_EOF(self, arg):
         '''
-        handle end of file and quit like a pro
+handle end of file and quit like a pro
         '''
         return True
+
+    def emptyline(self):
+        '''
+do something if user type
+else do nothing
+and follow dry principle
+        '''
+        pass
 
 
 if __name__ == '__main__':
