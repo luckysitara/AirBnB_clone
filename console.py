@@ -3,6 +3,8 @@
 import all modules needed
 '''
 import cmd
+import models
+from models.base_model import BaseModel
 
 '''
 create a class called the HBNBCommand
