@@ -155,6 +155,24 @@ and follow dry principle
         '''
         pass
 
+    def default(self, line):
+        """ Called for unknow command syntax """
+        if "." in line:
+            cmd_args = line.split(".")
+            if cmd_args[0] in self.__classes:
+                if cmd_args[1] == "count()":
+                    instances = [v for k, v in models.storage.all().items()
+                                 if k.startswith(cmd_args[0])]
+                    print(len(instances))
+                elif cmd_args[1].startswith("show"):
+                    inst_id = cmd_args[1].split('"')[1]
+                    self.do_show("{} {}".format(cmd_args[0], inst_id))
+                elif cmd_args[1].startswith("destroy"):
+                    inst_id = cmd_args[1].split('"')[1]
+                    self.do_destroy("{} {}".format(cmd_args[0], inst_id))
+        else:
+            print("*** Unknown syntax:", line)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
