@@ -5,6 +5,12 @@ import all modules needed
 import cmd
 import models
 from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.state import State
+from models.review import Review
+from models.place import Place
+from models.city import City
 
 '''
 create a class called the HBNBCommand
@@ -16,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
     '''
 HBNB Console for the win
     '''
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
     __classes = [
         "Amenity",
         "BaseModel",
