@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     '''
 HBNB Console for the win
     '''
-    prompt = "(hbnb)"
+    prompt = "(precious)"
     __classes = [
         "Amenity",
         "BaseModel",
