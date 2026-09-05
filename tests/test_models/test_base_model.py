@@ -5,6 +5,7 @@ Test cases:
     TestBaseModel_init
     TestBaseModel_dict_method
     TestBaseModel_save
+    TestBaseModel_str
 """
 
 import unittest
@@ -62,6 +63,12 @@ class TestBaseModel_init(unittest.TestCase):
         self.assertEqual(mod.id, "12345")
         self.assertEqual(mod.updated_at, update)
         self.assertEqual(mod.created_at, create)
+
+    def test_str(self):
+        mod = BaseModel()
+        expected = "[BaseModel] ({}) {}".format(mod.id, mod.__dict__)
+        self.assertEqual(str(mod), expected)
+        self.assertEqual(mod.__str__(), expected)
 
 
 class TestBaseModel_dict_method(unittest.TestCase):
@@ -155,6 +162,48 @@ class TestBaseModel_save(unittest.TestCase):
         mod_id = "BaseModel" + "." + mod.id
         with open("file.json", "r") as file:
             self.assertIn(mod_id, file.read())
+
+
+class TestBaseModel_str(unittest.TestCase):
+    """ Test case for BaseModel __str__ method """
+
+    def test_str_return_type(self):
+        mod = BaseModel()
+        self.assertIsInstance(str(mod), str)
+        self.assertIsInstance(mod.__str__(), str)
+
+    def test_str_format(self):
+        mod = BaseModel()
+        expected = "[BaseModel] ({}) {}".format(mod.id, mod.__dict__)
+        self.assertEqual(str(mod), expected)
+        self.assertEqual(mod.__str__(), expected)
+
+    def test_str_contains_class_name(self):
+        mod = BaseModel()
+        self.assertIn("[BaseModel]", str(mod))
+
+    def test_str_contains_id(self):
+        mod = BaseModel()
+        self.assertIn("({})".format(mod.id), str(mod))
+
+    def test_str_contains_dict(self):
+        mod = BaseModel()
+        self.assertIn(str(mod.__dict__), str(mod))
+
+    def test_str_with_attributes(self):
+        mod = BaseModel()
+        mod.name = "My First Model"
+        mod.my_number = 89
+        expected = "[BaseModel] ({}) {}".format(mod.id, mod.__dict__)
+        self.assertEqual(str(mod), expected)
+        self.assertEqual(mod.__str__(), expected)
+        self.assertIn("'name': 'My First Model'", str(mod))
+        self.assertIn("'my_number': 89", str(mod))
+
+    def test_str_two_instances(self):
+        mod1 = BaseModel()
+        mod2 = BaseModel()
+        self.assertNotEqual(str(mod1), str(mod2))
 
 
 if __name__ == '__main__':
