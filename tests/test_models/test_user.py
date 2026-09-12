@@ -22,15 +22,47 @@ class TestUser_init(unittest.TestCase):
         self.assertEqual(type(m), User)
 
     def test_public_attributes(self):
-        city = User()
-        self.assertNotIn("email", city.__dict__)
-        self.assertIn("email", dir(city))
-        self.assertNotIn("password", city.__dict__)
-        self.assertIn("password", dir(city))
-        self.assertNotIn("last_name", city.__dict__)
-        self.assertIn("last_name", dir(city))
-        self.assertNotIn("first_name", city.__dict__)
-        self.assertIn("first_name", dir(city))
+        u = User()
+        self.assertNotIn("email", u.__dict__)
+        self.assertIn("email", dir(u))
+        self.assertEqual(str, type(u.email))
+        self.assertNotIn("password", u.__dict__)
+        self.assertIn("password", dir(u))
+        self.assertEqual(str, type(u.password))
+        self.assertNotIn("last_name", u.__dict__)
+        self.assertIn("last_name", dir(u))
+        self.assertEqual(str, type(u.last_name))
+        self.assertNotIn("first_name", u.__dict__)
+        self.assertIn("first_name", dir(u))
+        self.assertEqual(str, type(u.first_name))
+
+    def test_email_is_public_str(self):
+        self.assertEqual(str, type(User.email))
+        self.assertEqual("", User.email)
+        u = User()
+        self.assertEqual(str, type(u.email))
+        self.assertEqual("", u.email)
+
+    def test_password_is_public_str(self):
+        self.assertEqual(str, type(User.password))
+        self.assertEqual("", User.password)
+        u = User()
+        self.assertEqual(str, type(u.password))
+        self.assertEqual("", u.password)
+
+    def test_first_name_is_public_str(self):
+        self.assertEqual(str, type(User.first_name))
+        self.assertEqual("", User.first_name)
+        u = User()
+        self.assertEqual(str, type(u.first_name))
+        self.assertEqual("", u.first_name)
+
+    def test_last_name_is_public_str(self):
+        self.assertEqual(str, type(User.last_name))
+        self.assertEqual("", User.last_name)
+        u = User()
+        self.assertEqual(str, type(u.last_name))
+        self.assertEqual("", u.last_name)
 
     def test_id_type_is_str(self):
         mod = User()
