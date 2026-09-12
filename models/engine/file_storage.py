@@ -55,8 +55,9 @@ class FileStorage:
                     if content:
                         objects_dict = json.loads(content)
                         for value in objects_dict.values():
-                            cls_name = value["__class__"]
-                            n_object = eval(cls_name)(**value)
-                            self.new(n_object)
+                            cls_name = value.get("__class__")
+                            if cls_name and cls_name in globals():
+                                n_object = eval(cls_name)(**value)
+                                self.new(n_object)
         except Exception:
             pass
